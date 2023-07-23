@@ -8,15 +8,23 @@ import java.util.ArrayList;
 import java.util.Collection;
 
 public class DefaultGameObject implements GameObject {
+    private final String id;
     private final Collection<Updater> updaters;
     private final Texture img;
     private final Vector2 location;
 
-    public DefaultGameObject(Texture img, Vector2 location) {
+    public DefaultGameObject(String id, Texture img, Vector2 location) {
+        this.id = id;
         this.updaters = new ArrayList<>();
         this.img = img;
         this.location = location;
     }
+
+    @Override
+    public String getId() {
+        return id;
+    }
+
     @Override
     public Texture getImg() {
         return img;

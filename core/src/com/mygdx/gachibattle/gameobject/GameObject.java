@@ -9,6 +9,7 @@ import com.mygdx.gachibattle.updaters.Updater;
  * The game entity with: view, location and actions(updaters)
  */
 public interface GameObject extends Disposable {
+    String getId();
     Texture getImg();
     Vector2 getLocation();
     void addUpdater(Updater updater);
