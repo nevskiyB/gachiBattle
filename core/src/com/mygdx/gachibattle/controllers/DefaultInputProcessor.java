@@ -1,17 +1,16 @@
 package com.mygdx.gachibattle.controllers;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputAdapter;
 import com.mygdx.gachibattle.controllers.controlsetup.ControlSetup;
 
-public class DefaultInputProcessor extends InputAdapter implements MoveActionsAccessor, AttackActionsAccessor {
+public class DefaultInputProcessor extends InputAdapter {
     private final ControlSetup setup;
-    private boolean goLeft, goRight, doPunch, doStringPunch;
+    private State state;
 
     public DefaultInputProcessor(ControlSetup setup) {
         this.setup = setup;
-        goLeft = goRight = doPunch = doStringPunch = false;
+        state = State.idle;
     }
 
     @Override
@@ -26,39 +25,22 @@ public class DefaultInputProcessor extends InputAdapter implements MoveActionsAc
         return false;
     }
 
-    private void setKey(int keycode, boolean value) {
-        Gdx.app.log("Key", "Input: '" + Input.Keys.toString(keycode) + "'; Key down: " + value);
-
+    private void setKey(int keycode, boolean isKeyDown) {
         //movement
-        if(setup.getRight() == keycode)
-            goRight = value;
-        if(setup.getLeft() == keycode)
-            goLeft = value;
+        if(isKeyDown) {
+            if (setup.getRight() == keycode)
+                state = State.walkRight;
+            if (setup.getLeft() == keycode)
+                state = State.walkLeft;
+        } else {
+            state = State.idle;
+        }
 
-        //attack
-        if(setup.getPunch() == keycode)
-            doPunch = value;
-        if(setup.getStrongPunch() == keycode)
-            doStringPunch = value;
+        //Gdx.app.log("Key", "Input: '" + Input.Keys.toString(keycode) + "'; Key down: " + isKeyDown);
+        Gdx.app.log("State", state.toString());
     }
 
-    @Override
-    public boolean getDoPunch() {
-        return doPunch;
-    }
-
-    @Override
-    public boolean getDoStringPunch() {
-        return doStringPunch;
-    }
-
-    @Override
-    public boolean getGoLeft() {
-        return goLeft;
-    }
-
-    @Override
-    public boolean getGoRight() {
-        return goRight;
+    public State getState() {
+        return state;
     }
 }
