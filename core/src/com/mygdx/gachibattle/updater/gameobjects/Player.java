@@ -7,16 +7,16 @@ import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
 import com.mygdx.gachibattle.controllers.DefaultInputProcessor;
 import com.mygdx.gachibattle.controllers.State;
-import com.mygdx.gachibattle.elements.StateProcessor;
-import com.mygdx.gachibattle.elements.position.physics.BodyElement;
-import com.mygdx.gachibattle.elements.position.physics.processors.PhysicalMovementWalkLeftStateProcessor;
-import com.mygdx.gachibattle.elements.position.physics.processors.PhysicalMovementWalkRightStateProcessor;
-import com.mygdx.gachibattle.elements.state.StateElement;
-import com.mygdx.gachibattle.elements.state.processors.InputAnyStateProcessor;
-import com.mygdx.gachibattle.elements.visual.VisualElement;
-import com.mygdx.gachibattle.elements.visual.processors.AnimationIdleStateProcessor;
-import com.mygdx.gachibattle.elements.visual.processors.AnimationWalkLeftStateProcessor;
-import com.mygdx.gachibattle.elements.visual.processors.AnimationWalkRightStateProcessor;
+import com.mygdx.gachibattle.components.StateProcessor;
+import com.mygdx.gachibattle.components.position.physics.BodyComponent;
+import com.mygdx.gachibattle.components.position.physics.processors.PhysicalMovementWalkLeftStateProcessor;
+import com.mygdx.gachibattle.components.position.physics.processors.PhysicalMovementWalkRightStateProcessor;
+import com.mygdx.gachibattle.components.state.StateComponent;
+import com.mygdx.gachibattle.components.state.processors.InputAnyStateProcessor;
+import com.mygdx.gachibattle.components.visual.VisualComponent;
+import com.mygdx.gachibattle.components.visual.processors.AnimationIdleStateProcessor;
+import com.mygdx.gachibattle.components.visual.processors.AnimationWalkLeftStateProcessor;
+import com.mygdx.gachibattle.components.visual.processors.AnimationWalkRightStateProcessor;
 import com.mygdx.gachibattle.updater.physics.Physics;
 import com.mygdx.gachibattle.updater.Updater;
 
@@ -26,21 +26,21 @@ import java.util.Collection;
 
 public class Player implements Updater, Disposable {
     protected final String id;
-    private final StateElement stateElement;
-    private final BodyElement bodyElement;
-    private final VisualElement visualElement;
+    private final StateComponent stateElement;
+    private final BodyComponent bodyElement;
+    private final VisualComponent visualElement;
 
     public Player(String id, Vector2 initPosition, DefaultInputProcessor inputProcessor) {
         this.id = id;
 
         Collection<StateProcessor> stateProcessorCollection = new ArrayList<>();
-        stateElement = new StateElement(State.idle, stateProcessorCollection);
+        stateElement = new StateComponent(State.idle, stateProcessorCollection);
         stateProcessorCollection.add(new InputAnyStateProcessor(stateElement, inputProcessor));
 
         Texture texture = new Texture("idel/billy.png");
 
         Collection<StateProcessor> bodyElementCollection = new ArrayList<>();
-        bodyElement = new BodyElement(
+        bodyElement = new BodyComponent(
                 getBody(initPosition,
                         new Vector2(texture.getWidth(), texture.getHeight()),
                         BodyDef.BodyType.DynamicBody,
@@ -50,7 +50,7 @@ public class Player implements Updater, Disposable {
         bodyElementCollection.add(new PhysicalMovementWalkRightStateProcessor(bodyElement, 20f));
 
         Collection<StateProcessor> visualElementCollection = new ArrayList<>();
-        visualElement = new VisualElement(texture, visualElementCollection, bodyElement);
+        visualElement = new VisualComponent(texture, visualElementCollection, bodyElement);
         visualElementCollection.add(new AnimationIdleStateProcessor(visualElement, 0, getIdleFrames()));
         visualElementCollection.add(new AnimationWalkRightStateProcessor(visualElement, 0.3f, getWalkRightFrames()));
         visualElementCollection.add(new AnimationWalkLeftStateProcessor(visualElement, 0.3f, getWalkLeftFrames()));

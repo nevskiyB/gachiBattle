@@ -3,7 +3,7 @@ package com.mygdx.gachibattle.updater.physics;
 import com.badlogic.gdx.math.Matrix4;
 import com.badlogic.gdx.physics.box2d.Box2DDebugRenderer;
 import com.badlogic.gdx.physics.box2d.World;
-import com.mygdx.gachibattle.updater.Render;
+import com.mygdx.gachibattle.updater.render.Render;
 import com.mygdx.gachibattle.updater.Updater;
 
 public class DebugRenderPhysics implements Updater {

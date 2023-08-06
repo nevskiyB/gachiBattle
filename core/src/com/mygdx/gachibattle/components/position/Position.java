@@ -1,4 +1,4 @@
-package com.mygdx.gachibattle.elements.position;
+package com.mygdx.gachibattle.components.position;
 
 import com.badlogic.gdx.math.Vector2;
 

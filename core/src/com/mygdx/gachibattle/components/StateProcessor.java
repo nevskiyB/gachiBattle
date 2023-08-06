@@ -1,4 +1,4 @@
-package com.mygdx.gachibattle.elements;
+package com.mygdx.gachibattle.components;
 
 import com.mygdx.gachibattle.controllers.State;
 

@@ -1,16 +1,16 @@
-package com.mygdx.gachibattle.elements.state.processors;
+package com.mygdx.gachibattle.components.state.processors;
 
 import com.mygdx.gachibattle.controllers.DefaultInputProcessor;
 import com.mygdx.gachibattle.controllers.State;
-import com.mygdx.gachibattle.elements.Element;
-import com.mygdx.gachibattle.elements.StateProcessor;
+import com.mygdx.gachibattle.components.Component;
+import com.mygdx.gachibattle.components.StateProcessor;
 
 
 public class InputAnyStateProcessor extends StateProcessor {
-    private final Element<State> stateElement;
+    private final Component<State> stateElement;
     private final DefaultInputProcessor inputProcessor;
 
-    public InputAnyStateProcessor(Element<State> stateElement, DefaultInputProcessor inputProcessor) {
+    public InputAnyStateProcessor(Component<State> stateElement, DefaultInputProcessor inputProcessor) {
         super(State.any);
         this.stateElement = stateElement;
         this.inputProcessor = inputProcessor;

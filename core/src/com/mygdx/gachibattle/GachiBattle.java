@@ -6,7 +6,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.mygdx.gachibattle.controllers.DefaultInputProcessor;
 import com.mygdx.gachibattle.controllers.controlsetup.DefaultControlSetup;
-import com.mygdx.gachibattle.updater.Render;
+import com.mygdx.gachibattle.updater.render.Render;
 import com.mygdx.gachibattle.updater.gameobjects.Ground;
 import com.mygdx.gachibattle.updater.physics.DebugRenderPhysics;
 import com.mygdx.gachibattle.updater.physics.Physics;

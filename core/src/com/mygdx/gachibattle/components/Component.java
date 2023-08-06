@@ -1,15 +1,15 @@
-package com.mygdx.gachibattle.elements;
+package com.mygdx.gachibattle.components;
 
 
 import com.mygdx.gachibattle.controllers.State;
 
 import java.util.Collection;
 
-public abstract class Element<V>  {
+public abstract class Component<V>  {
     public V value; //data
     protected Collection<StateProcessor> processorCollection; //actions
 
-    public Element(V initValue, Collection<StateProcessor> processorCollection) {
+    public Component(V initValue, Collection<StateProcessor> processorCollection) {
         value = initValue;
         this.processorCollection = processorCollection;
     }

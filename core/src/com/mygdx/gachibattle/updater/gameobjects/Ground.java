@@ -4,9 +4,8 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
-import com.mygdx.gachibattle.controllers.DefaultInputProcessor;
-import com.mygdx.gachibattle.elements.position.physics.BodyElement;
-import com.mygdx.gachibattle.elements.visual.VisualElement;
+import com.mygdx.gachibattle.components.position.physics.BodyComponent;
+import com.mygdx.gachibattle.components.visual.VisualComponent;
 import com.mygdx.gachibattle.updater.Updater;
 import com.mygdx.gachibattle.updater.physics.Physics;
 
@@ -15,22 +14,22 @@ import java.util.Collections;
 
 public class Ground implements Updater, Disposable {
     protected final String id;
-    private final BodyElement bodyElement;
-    private final VisualElement visualElement;
+    private final BodyComponent bodyElement;
+    private final VisualComponent visualElement;
 
     public Ground(String id, Vector2 initPosition) {
         this.id = id;
 
         Texture texture = new Texture("badlogic.jpg");
 
-        bodyElement = new BodyElement(
+        bodyElement = new BodyComponent(
                 getBody(initPosition,
                         new Vector2(texture.getWidth(), texture.getHeight()),
                         BodyDef.BodyType.StaticBody,
                         100f),
                 Collections.EMPTY_LIST);
 
-        visualElement = new VisualElement(texture, Collections.EMPTY_LIST, bodyElement);
+        visualElement = new VisualComponent(texture, Collections.EMPTY_LIST, bodyElement);
     }
 
     @Override
