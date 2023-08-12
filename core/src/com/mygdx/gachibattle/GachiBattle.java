@@ -4,16 +4,17 @@ import com.badlogic.gdx.Application;
 import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
-import com.mygdx.gachibattle.controllers.DefaultInputProcessor;
+import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.gachibattle.entity.utils.state.InputProcessorStateMachine;
 import com.mygdx.gachibattle.controllers.controlsetup.DefaultControlSetup;
 import com.mygdx.gachibattle.updater.render.Render;
-import com.mygdx.gachibattle.updater.gameobjects.Ground;
+import com.mygdx.gachibattle.entity.Ground;
 import com.mygdx.gachibattle.updater.physics.DebugRenderPhysics;
 import com.mygdx.gachibattle.updater.physics.Physics;
-import com.mygdx.gachibattle.updater.gameobjects.Player;
+import com.mygdx.gachibattle.entity.Player;
 
 public class GachiBattle extends ApplicationAdapter {
-	private DefaultInputProcessor actionsAccessor;
+	private InputProcessorStateMachine actionsAccessor;
 	private Render render;
 	private Physics physics;
 	private DebugRenderPhysics debugRenderPhysics;
@@ -25,18 +26,18 @@ public class GachiBattle extends ApplicationAdapter {
 		Gdx.app.setLogLevel(Application.LOG_DEBUG);
 		Gdx.app.log("Init", "Initialization started");
 
-		actionsAccessor = new DefaultInputProcessor(new DefaultControlSetup());
+		actionsAccessor = new InputProcessorStateMachine(new DefaultControlSetup());
 		Gdx.input.setInputProcessor(actionsAccessor);
 		render = Render.INSTANCE;
 		physics = Physics.INSTANCE;
 		debugRenderPhysics = DebugRenderPhysics.INSTANCE;
 
 		Gdx.app.log("Init character", "Character creating started");
-		playerObject = new Player("player", new Vector2(50, 100), actionsAccessor);
+		playerObject = new Player(new Vector2(50, 100), actionsAccessor);
 		Gdx.app.log("Init character", "Character creating ended");
 
 		Gdx.app.log("Init ground", "Ground creating started");
-		groundObject = new Ground("ground", new Vector2(-50, -300));
+		groundObject = new Ground( new Vector2(-50, -300));
 		Gdx.app.log("Init ground", "Ground creating ended");
 
 		Gdx.app.log("Init", "Initialization end");
@@ -44,9 +45,14 @@ public class GachiBattle extends ApplicationAdapter {
 
 	@Override
 	public void render () {
-		playerObject.update();
+		ScreenUtils.clear(1, 1, 1, 1);
+		render.batch.begin();
 
-		render.update();
+		playerObject.performActionStates();
+		groundObject.performActionStates();
+
+		render.batch.end();
+
 		debugRenderPhysics.update();
 		physics.update();
 	}
