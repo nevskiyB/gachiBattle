@@ -6,7 +6,7 @@ import com.mygdx.gachibattle.controllers.controlsetup.ControlSetup;
 
 public class InputProcessorStateMachine extends InputAdapter implements StateMachine {
     private final ControlSetup setup;
-    public State state = State.idle;
+    public State state = State.idleRight;
 
     public InputProcessorStateMachine(ControlSetup setup) {
         this.setup = setup;
@@ -32,7 +32,10 @@ public class InputProcessorStateMachine extends InputAdapter implements StateMac
             if (setup.getLeft() == keycode)
                 state = State.walkLeft;
         } else {
-            state = State.idle;
+            if(state == State.walkRight)
+                state = State.idleRight;
+            if(state == State.walkLeft)
+                state = State.idleLeft;
         }
 
         Gdx.app.log("State", state.toString());

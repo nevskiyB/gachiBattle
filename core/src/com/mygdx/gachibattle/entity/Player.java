@@ -2,17 +2,15 @@ package com.mygdx.gachibattle.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
-import com.badlogic.gdx.utils.Array;
 import com.badlogic.gdx.utils.Disposable;
-import com.mygdx.gachibattle.controllers.controlsetup.ControlSetup;
-import com.mygdx.gachibattle.controllers.controlsetup.DefaultControlSetup;
 import com.mygdx.gachibattle.entity.utils.AbstractEntity;
 import com.mygdx.gachibattle.entity.utils.actions.ActionState;
 import com.mygdx.gachibattle.entity.utils.actions.exceptions.ComponentMissingException;
+import com.mygdx.gachibattle.entity.utils.actions.view.AnimationIdleAction;
 import com.mygdx.gachibattle.entity.utils.actions.view.DrawAction;
-import com.mygdx.gachibattle.entity.utils.state.InputProcessorStateMachine;
 import com.mygdx.gachibattle.entity.utils.components.physics.BodyComponent;
 import com.mygdx.gachibattle.entity.utils.actions.physics.PhysicalMovementWalkLeftAction;
 import com.mygdx.gachibattle.entity.utils.actions.physics.PhysicalMovementWalkRightAction;
@@ -21,6 +19,7 @@ import com.mygdx.gachibattle.entity.utils.actions.view.AnimationWalkLeftAction;
 import com.mygdx.gachibattle.entity.utils.actions.view.AnimationWalkRightAction;
 import com.mygdx.gachibattle.entity.utils.state.State;
 import com.mygdx.gachibattle.entity.utils.state.StateMachine;
+import com.mygdx.gachibattle.loader.TextureLoader;
 import com.mygdx.gachibattle.updater.physics.Physics;
 
 
@@ -30,10 +29,10 @@ public class Player extends AbstractEntity implements Disposable {
         super(stateMachine);
 
         //Components
-        Texture texture = new Texture("idel/billy.png");
-        components.add(new ViewComponent(texture));
+        TextureRegion textureRegion = new TextureRegion(new Texture("billy/billy_idle_right.png"));
+        components.add(new ViewComponent(textureRegion));
         components.add(new BodyComponent(getBody(initPosition,
-                new Vector2(texture.getWidth(), texture.getHeight()),
+                new Vector2(textureRegion.getTexture().getWidth(), textureRegion.getTexture().getHeight()),
                 BodyDef.BodyType.DynamicBody,
                 100f)));
 
@@ -42,12 +41,18 @@ public class Player extends AbstractEntity implements Disposable {
             actions.add(new ActionState(new DrawAction(this)));
             actions.add(new ActionState(State.walkRight,
                 new PhysicalMovementWalkRightAction(this, 20f),
-                new AnimationWalkRightAction(this, 0.3f, getWalkRightFrames())));
+                new AnimationWalkRightAction(this, 0.3f,
+                        TextureLoader.getFrames("billy/billy_walk_right.png", 4, 1))));
             actions.add(new ActionState(State.walkLeft,
                 new PhysicalMovementWalkLeftAction(this, 20f),
-                new AnimationWalkLeftAction(this, 0.3f, getWalkLeftFrames())));
-            actions.add(new ActionState(State.idle,
-                new AnimationWalkLeftAction(this, 0f, getIdleFrames())));
+                new AnimationWalkLeftAction(this, 0.3f,
+                        TextureLoader.getFrames("billy/billy_walk_left.png", 4, 1))));
+            actions.add(new ActionState(State.idleRight,
+                new AnimationIdleAction(this, 0f,
+                        TextureLoader.getFrames("billy/billy_idle_right.png", 1, 1))));
+            actions.add(new ActionState(State.idleLeft,
+                new AnimationIdleAction(this, 0f,
+                        TextureLoader.getFrames("billy/billy_idle_left.png", 1, 1))));
         }
         catch (ComponentMissingException e) {
             Gdx.app.error("Initialization error", e.getMessage());
@@ -81,33 +86,5 @@ public class Player extends AbstractEntity implements Disposable {
         poly.dispose();
 
         return body;
-    }
-
-    private Array<Texture> getIdleFrames() {
-        Array<Texture> keyFramesIdel = new Array<>();
-		keyFramesIdel.add(new Texture("idel/billy.png"));
-        return keyFramesIdel;
-    }
-
-    private Array<Texture> getWalkRightFrames() {
-        Array<Texture> keyFramesRightWalk = new Array<>();
-
-        keyFramesRightWalk.add(new Texture("walkRight/0000.png"));
-        keyFramesRightWalk.add(new Texture("walkRight/0001.png"));
-        keyFramesRightWalk.add(new Texture("walkRight/0002.png"));
-        keyFramesRightWalk.add(new Texture("walkRight/0003.png"));
-
-        return keyFramesRightWalk;
-    }
-
-    private Array<Texture> getWalkLeftFrames() {
-		Array<Texture> keyFramesLeftWalk = new Array<>();
-
-		keyFramesLeftWalk.add(new Texture("walkLeft/0000.png"));
-		keyFramesLeftWalk.add(new Texture("walkLeft/0001.png"));
-		keyFramesLeftWalk.add(new Texture("walkLeft/0002.png"));
-		keyFramesLeftWalk.add(new Texture("walkLeft/0003.png"));
-
-        return keyFramesLeftWalk;
     }
 }

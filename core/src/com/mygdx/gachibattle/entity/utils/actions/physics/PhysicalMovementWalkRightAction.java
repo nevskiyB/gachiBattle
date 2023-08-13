@@ -1,6 +1,5 @@
 package com.mygdx.gachibattle.entity.utils.actions.physics;
 
-import com.badlogic.gdx.Gdx;
 import com.mygdx.gachibattle.entity.utils.AbstractEntity;
 import com.mygdx.gachibattle.entity.utils.actions.Action;
 import com.mygdx.gachibattle.entity.utils.actions.exceptions.ComponentMissingException;
@@ -21,7 +20,6 @@ public class PhysicalMovementWalkRightAction implements Action {
     @Override
     public void execute() {
         bodyComponent.value.setLinearVelocity(velocityX, bodyComponent.value.getLinearVelocity().y);
-        Gdx.app.log("MOVE RIGHT", "");
     }
 
     @Override

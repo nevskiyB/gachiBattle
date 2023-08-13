@@ -2,39 +2,28 @@ package com.mygdx.gachibattle.entity;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.physics.box2d.*;
 import com.badlogic.gdx.utils.Disposable;
-import com.mygdx.gachibattle.controllers.controlsetup.DefaultControlSetup;
 import com.mygdx.gachibattle.entity.utils.AbstractEntity;
-import com.mygdx.gachibattle.entity.utils.ComponentsHolder;
 import com.mygdx.gachibattle.entity.utils.actions.ActionState;
 import com.mygdx.gachibattle.entity.utils.actions.exceptions.ComponentMissingException;
-import com.mygdx.gachibattle.entity.utils.actions.physics.PhysicalMovementWalkLeftAction;
-import com.mygdx.gachibattle.entity.utils.actions.physics.PhysicalMovementWalkRightAction;
-import com.mygdx.gachibattle.entity.utils.actions.view.AnimationWalkLeftAction;
-import com.mygdx.gachibattle.entity.utils.actions.view.AnimationWalkRightAction;
 import com.mygdx.gachibattle.entity.utils.actions.view.DrawAction;
 import com.mygdx.gachibattle.entity.utils.components.physics.BodyComponent;
 import com.mygdx.gachibattle.entity.utils.components.view.ViewComponent;
 import com.mygdx.gachibattle.entity.utils.state.AnyStateMachine;
-import com.mygdx.gachibattle.entity.utils.state.InputProcessorStateMachine;
-import com.mygdx.gachibattle.entity.utils.state.State;
-import com.mygdx.gachibattle.entity.utils.state.StateMachine;
-import com.mygdx.gachibattle.updater.Updater;
 import com.mygdx.gachibattle.updater.physics.Physics;
-
-import java.util.Collections;
 
 
 public class Ground extends AbstractEntity implements Disposable {
     public Ground(Vector2 initPosition) {
         super(new AnyStateMachine());
         //Components
-        Texture texture = new Texture("badlogic.jpg");
-        components.add(new ViewComponent(texture));
+        TextureRegion textureRegion = new TextureRegion(new Texture("badlogic.jpg"));
+        components.add(new ViewComponent(textureRegion));
         components.add(new BodyComponent(getBody(initPosition,
-                new Vector2(texture.getWidth(), texture.getHeight()),
+                new Vector2(textureRegion.getTexture().getWidth(), textureRegion.getTexture().getHeight()),
                 BodyDef.BodyType.StaticBody,
                 100f)));
 

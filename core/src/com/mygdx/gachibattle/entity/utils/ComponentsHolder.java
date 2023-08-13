@@ -5,15 +5,11 @@ import com.mygdx.gachibattle.entity.utils.actions.exceptions.ComponentMissingExc
 import com.mygdx.gachibattle.entity.utils.components.Component;
 import com.mygdx.gachibattle.entity.utils.components.ComponentType;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class ComponentsHolder {
     public final List<Component> components;
 
-    public ComponentsHolder() {
-        this.components = new ArrayList<>();
-    }
     public ComponentsHolder(List<Component> components) {
         this.components = components;
     }
