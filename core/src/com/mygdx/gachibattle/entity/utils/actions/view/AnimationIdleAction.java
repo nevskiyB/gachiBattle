@@ -32,4 +32,9 @@ public class AnimationIdleAction implements Action {
     public boolean isEnabled() {
         return viewComponent.enabled && enabled;
     }
+
+    @Override
+    public String getTag() {
+        return "AnimationIdleAction";
+    }
 }

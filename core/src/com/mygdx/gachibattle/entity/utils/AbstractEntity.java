@@ -1,5 +1,6 @@
 package com.mygdx.gachibattle.entity.utils;
 
+import com.badlogic.gdx.Gdx;
 import com.mygdx.gachibattle.entity.utils.state.ActionStatesPerformer;
 import com.mygdx.gachibattle.entity.utils.components.Component;
 import com.mygdx.gachibattle.entity.utils.actions.ActionState;

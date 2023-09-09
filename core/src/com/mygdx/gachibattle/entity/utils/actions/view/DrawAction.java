@@ -45,4 +45,9 @@ public class DrawAction implements Action {
 
         throw new PositionComponentNotFoundException(entity);
     }
+
+    @Override
+    public String getTag() {
+        return "DrawAction";
+    }
 }

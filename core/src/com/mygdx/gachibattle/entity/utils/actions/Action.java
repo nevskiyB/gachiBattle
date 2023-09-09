@@ -6,5 +6,6 @@ import com.mygdx.gachibattle.entity.utils.components.Enabled;
  * One minimal functionality
  */
 public interface Action extends Enabled {
+    String getTag();
     void execute();
 }

@@ -5,13 +5,13 @@ import com.badlogic.gdx.ApplicationAdapter;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.ScreenUtils;
+import com.mygdx.gachibattle.entity.player.Player;
 import com.mygdx.gachibattle.entity.utils.state.InputProcessorStateMachine;
 import com.mygdx.gachibattle.controllers.controlsetup.DefaultControlSetup;
 import com.mygdx.gachibattle.updater.render.Render;
 import com.mygdx.gachibattle.entity.Ground;
 import com.mygdx.gachibattle.updater.physics.DebugRenderPhysics;
 import com.mygdx.gachibattle.updater.physics.Physics;
-import com.mygdx.gachibattle.entity.Player;
 
 public class GachiBattle extends ApplicationAdapter {
 	private InputProcessorStateMachine actionsAccessor;

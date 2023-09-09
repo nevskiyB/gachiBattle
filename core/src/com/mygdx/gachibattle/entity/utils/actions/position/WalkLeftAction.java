@@ -24,4 +24,9 @@ public class WalkLeftAction implements Action {
     public boolean isEnabled() {
         return position.enabled && enabled;
     }
+
+    @Override
+    public String getTag() {
+        return "WalkLeftAction";
+    }
 }

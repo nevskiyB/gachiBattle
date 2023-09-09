@@ -21,8 +21,10 @@ public class ActionState {
     }
 
     public void execute(State activeEntityState) {
+
         if(state == State.any || state == activeEntityState) {
             for (Action act : actionsForState ) {
+                Gdx.app.log("Action: " + act.getTag(), "");
                 if(act.isEnabled()) {
                     act.execute();
                 }

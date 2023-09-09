@@ -26,4 +26,9 @@ public class PhysicalMovementWalkRightAction implements Action {
     public boolean isEnabled() {
         return bodyComponent.enabled && enabled;
     }
+
+    @Override
+    public String getTag() {
+        return "PhysicalMovementWalkRightAction";
+    }
 }
